@@ -1,9 +1,9 @@
-const notes = require('express').Router();
+const notes = requirnotee('express').Router();
 const { readAndAppend } = require('../helpers/fsUtils');
 const uuid = require('../helpers/uuid');
 
-// GET Route for retrieving all the tips
-tips.get('/', (req, res) => {
+// GET Route for retrieving all the notes
+notes.get('/', (req, res) => {
     readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
   });
   
@@ -11,22 +11,21 @@ tips.get('/', (req, res) => {
   notes.post('/', (req, res) => {
     console.log(req.body);
   
-    const { name, topic, tip } = req.body;
+    const { title, text } = req.body;
   
     if (req.body) {
-      const newTip = {
-        name,
-        tip,
-        topic,
-        tip_id: uuid(),
+      const newNote = {
+        title,
+        text,
+        title_id: uuid(),
       };
   
-      readAndAppend(newTip, './db/tips.json');
-      res.json(`Tip added successfully 🚀`);
+      readAndAppend(newNote, './db/db.json');
+      res.json(`Note added successfully 🚀`);
     } else {
-      res.error('Error in adding tip');
+      res.error('This note was unable to be added please try again');
     }
   });
   
-  module.exports = tips;
+  module.exports = notes;
   
