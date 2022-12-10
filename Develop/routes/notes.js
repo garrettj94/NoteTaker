@@ -1,10 +1,10 @@
-const notes = requirnotee('express').Router();
+const notes = require('express').Router();
 const { readAndAppend } = require('../helpers/fsUtils');
 const uuid = require('../helpers/uuid');
 
 // GET Route for retrieving all the notes
 notes.get('/', (req, res) => {
-    readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
+    readFromFile('./db/db.json.').then((data) => res.json(JSON.parse(data)));
   });
   
   // POST Route for a new note
@@ -13,7 +13,7 @@ notes.get('/', (req, res) => {
   
     const { title, text } = req.body;
   
-    if (req.body) {
+    if (title && text) {
       const newNote = {
         title,
         text,
