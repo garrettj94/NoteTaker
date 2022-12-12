@@ -8,7 +8,7 @@ notes.get('/', (req, res) => {
   });
   
   // POST Route for a new note
-  notes.post('/', (req, res) => {
+  notes.post('/notes', (req, res) => {
     console.log(req.body);
   
     const { title, text } = req.body;
