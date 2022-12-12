@@ -1,52 +1,56 @@
-const express = require('express');
-const path = require('path');
-const { clog } = require('./middleware/clog');
-// const  = require('./public/assets/js/index');
+// const express = require('express');
+// const path = require('path');
+// const { clog } = require('./middleware/clog');
+// const fs = require('fs');
+// const util = require('util');
+// // const notes = require('./public/assets/js/index');
 
 
-const PORT = process.env.port || 3001;
+// const PORT = process.env.port || 3001;
 
-const app = express();
+// const app = express();
 
-// Import custom middleware, "cLog"
-app.use(clog);
+// // Import custom middleware, "cLog"
+// app.use(clog);
 
-// Middleware for parsing JSON and urlencoded form data
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// // Middleware for parsing JSON and urlencoded form data
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 
 
-app.use(express.static('public'));
+// app.use(express.static('public'));
 
-// GET Route for homepage
-app.get('/', (req, res) =>
-  res.sendFile(path.join(api, '/public/index.html'))
-);
+// // GET Route for homepage
+// app.get('/', (req, res) =>
+//   res.sendFile(path.join(notes,'/public/index.html'))
+// );
 
-// GET Route for notes page
-app.get('/notes', (req, res) =>
-  res.sendFile(path.join(__dirname, '/public/notes.html'))
-);
- // POST Route for a new note
- app.post('/notes', (req, res) => {
-  console.log(req.body);
+// // GET Route for notes page
+// app.get('/notes', (req, res) =>
+//   res.sendFile(path.join(notes, '/public/notes.html'))
+// );
 
-  const { title, text } = req.body;
 
-  if (title && text) {
-    const newNote = {
-      title,
-      text,
-      title_id: uuid(),
-    };
+//  // POST Route for a new note
+//  app.post('/notes', (req, res) => {
+//   console.log(req.body);
 
-    readAndAppend(newNote, './db/db.json');
-    res.json(`Note added successfully 🚀`);
-  } else {
-    res.error('This note was unable to be added please try again');
-  }
-});
+//   const { title, text } = req.body;
 
-app.listen(PORT, () =>
-  console.log(`App listening at http://localhost:${PORT} 🚀`)
-);
+//   if (title && text) {
+//     const newNote = {
+//       title,
+//       text,
+//       title_id: uuid(),
+//     };
+
+//     readAndAppend(newNote, './db/db.json');
+//     res.json(`Note added successfully 🚀`);
+//   } else {
+//     res.error('This note was unable to be added please try again');
+//   }
+// });
+
+// app.listen(PORT, () =>
+//   console.log(`App listening at http://localhost:${PORT} 🚀`)
+// );
