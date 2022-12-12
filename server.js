@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const { clog } = require('./middleware/clog');
-const api = require('./routes/index.js');
+// const  = require('./public/assets/js/index');
 
 
 const PORT = process.env.port || 3001;
@@ -20,7 +20,7 @@ app.use(express.static('public'));
 
 // GET Route for homepage
 app.get('/', (req, res) =>
-  res.sendFile(path.join(__dirname, '/public/index.html'))
+  res.sendFile(path.join(api, '/public/index.html'))
 );
 
 // GET Route for notes page
