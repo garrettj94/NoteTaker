@@ -1,62 +1,11 @@
-// const express = require('express');
-const express = require('express');
-const path = require('path');
-const { clog } = require('./middleware/clog');
-
-
-
-const PORT = process.env.port || 3001;
-
-const app = express();
-
-// Import custom middleware, "cLog"
-app.use(clog);
-
-// Middleware for parsing JSON and urlencoded form data
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-
-app.use(express.static('public'));
-
-// GET Route for homepage
-app.get('/', (req, res) =>
-  res.sendFile(path.join(notes,'/public/index.html'))
-);
-
-// GET Route for notes page
-app.get('/notes', (req, res) =>
-  res.sendFile(path.join(notes, '/public/notes.html'))
-);
-
-
- // POST Route for a new note
- app.post('/notes', (req, res) => {
-  console.log(req.body);
-
-  const { title, text } = req.body;
-
-  if (title && text) {
-    const newNote = {
-      title,
-      text,
-      title_id: uuid(),
-    };
-
-    readAndAppend(newNote, './db/db.json');
-    res.json(`Note added successfully 🚀`);
-  } else {
-    res.error('This note was unable to be added please try again');
-  }
-});
-
-
 
 let noteTitle;
 let noteText;
 let saveNoteBtn;
 let newNoteBtn;
 let noteList;
+
+
 
 if (window.location.pathname === '/public/notes.html') {
   noteTitle = document.querySelector('.note-title');
@@ -173,7 +122,7 @@ const handleRenderSaveBtn = () => {
 // Render the list of note titles
 const renderNoteList = async (notes) => {
   let jsonNotes = await notes.json();
-  if (window.location.pathname === '/notes') {
+  if (window.location.pathname === '/public/notes.html') {
     noteList.forEach((el) => (el.innerHTML = ''));
   }
 
@@ -219,7 +168,7 @@ const renderNoteList = async (notes) => {
     noteListItems.push(li);
   });
 
-  if (window.location.pathname === '/notes') {
+  if (window.location.pathname === '/public/notes.html') {
     noteListItems.forEach((note) => noteList[0].append(note));
   }
 };
@@ -227,7 +176,7 @@ const renderNoteList = async (notes) => {
 // Gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = () => getNotes().then(renderNoteList);
 
-if (window.location.pathname === '/notes') {
+if (window.location.pathname === '/public/notes.html') {
   saveNoteBtn.addEventListener('click', handleNoteSave);
   newNoteBtn.addEventListener('click', handleNewNoteView);
   noteTitle.addEventListener('keyup', handleRenderSaveBtn);
@@ -236,6 +185,3 @@ if (window.location.pathname === '/notes') {
 
 getAndRenderNotes();
 
-app.listen(PORT, () =>
-  console.log(`App listening at http://localhost:${PORT} 🚀`)
-);
