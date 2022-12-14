@@ -1,7 +1,9 @@
 const express = require('express');
 const path = require('path');
 const { clog } = require('./middleware/clog');
-const { readAndAppend } = require('./helpers/fsUtils');
+const api = require('./routes/index.js');
+
+// const { readAndAppend } = require('./helpers/fsUtils');
 
 
 
@@ -17,7 +19,7 @@ app.use(clog);
 // Middleware for parsing JSON and urlencoded form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use('/api', api);
 
 app.use(express.static('public'));
 
@@ -32,25 +34,25 @@ app.get('/notes', (req, res) =>
 );
 
 
- // POST Route for a new note
- app.post('/note', (req, res) => {
-    console.log(req.body);
+//  // POST Route for a new note
+//  app.post('/notes', (req, res) => {
+//     console.log(req.body);
   
-    const { title, text } = req.body;
+//     const { title, text } = req.body;
   
-    if (title && text) {
-      const newNote = {
-        title,
-        text,
-        title_id: uuid(),
-      };
+//     if (title && text) {
+//       const newNote = {
+//         title,
+//         text,
+//         title_id: uuidv4(),
+//       };
   
-      readAndAppend(newNote, './db/db.json');
-      res.json(`Note added successfully`);
-    } else {
-      res.error('This note was unable to be added please try again');
-    }
-  });
+//       readAndAppend(newNote, './db/db.json');
+//       res.json(`Note added successfully`);
+//     } else {
+//       res.error('This note was unable to be added please try again');
+//     }
+//   });
 
 
 
