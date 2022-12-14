@@ -3,13 +3,13 @@ const path = require('path');
 const { clog } = require('./middleware/clog');
 const api = require('./routes/index.js');
 
-// const { readAndAppend } = require('./helpers/fsUtils');
 
 
 
 
 
-const PORT = process.env.port || 3001;
+
+const PORT = process.env.port || 5000;
 
 const app = express();
 
