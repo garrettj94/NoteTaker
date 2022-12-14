@@ -32,6 +32,5 @@
     garrettjackson43@gmail.com
 
     ##heroku: 
-  =
+    https://notetakernode.herokuapp.com/
 
-  <<img src="./assets/Screenshot.png">>
