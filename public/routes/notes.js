@@ -7,7 +7,7 @@ const { readAndAppend, readFromFile } = require('../helpers/fsUtils');
 
 // GET Route for retrieving all the notes
 note.get('/notes', (req, res) => {
-    readFromFile('./notes.html').then((data) => res.json(JSON.parse(data)));
+    readFromFile('./public/notes.html').then((data) => res.json(JSON.parse(data)));
   });
 
   note.post('/notes', (req, res) => {
@@ -22,7 +22,7 @@ note.get('/notes', (req, res) => {
         title_id: uuid(),
       };
   
-      readAndAppend(newNote, './notes.html');
+      readAndAppend(newNote, './public/notes.html');
       res.json(`Note added successfully `);
     } else {
       res.error('This note was unable to be added please try again');

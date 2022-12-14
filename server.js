@@ -33,7 +33,7 @@ app.get('/notes', (req, res) =>
 
 
  // POST Route for a new note
- app.post('/', (req, res) => {
+ app.post('/note', (req, res) => {
     console.log(req.body);
   
     const { title, text } = req.body;
@@ -51,6 +51,13 @@ app.get('/notes', (req, res) =>
       res.error('This note was unable to be added please try again');
     }
   });
+
+
+
+
+
+
+  
 
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT} `)
