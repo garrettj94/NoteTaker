@@ -1,6 +1,6 @@
 const notes = require('express').Router();
 const { v4: uuidv4 } = require('uuid');
-const { readAndAppend, readFromFile } = require('../helpers/fsUtils');
+const { readAndAppend, readFromFile, writeToFile } = require('../helpers/fsUtils');
 
 
 
@@ -10,13 +10,13 @@ const { readAndAppend, readFromFile } = require('../helpers/fsUtils');
 notes.get('/', (req, res) => {
     readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
   });
-
-  notes.get('/:notes_id', (req, res) => {
-    const noteId = req.params.notes_id;
+  // Route for a specific note
+  notes.get('/:title_id', (req, res) => {
+    const noteId = req.params.title_id;
     readFromFile('./db/db.json')
       .then((data) => JSON.parse(data))
       .then((json) => {
-        const result = json.filter((tip) => note.notes_id === noteId);
+        const result = json.filter((note) => note.title_id === noteId);
         return result.length > 0
           ? res.json(result)
           : res.json('No note with that ID');
@@ -25,13 +25,13 @@ notes.get('/', (req, res) => {
 
   
 // DELETE Route for a specific note
-notes.delete('/:notes_id', (req, res) => {
-  const noteId = req.params.notes_id;
+notes.delete('/:title_id', (req, res) => {
+  const noteId = req.params.title_id;
   readFromFile('./db/db.json')
     .then((data) => JSON.parse(data))
     .then((json) => {
-      // Make a new array of all tips except the one with the ID provided in the URL
-      const result = json.filter((notes) => notes.notes_id !== noteId);
+      // Make a new array of all notes except the one with the ID provided in the URL
+      const result = json.filter((note) => note.title_id !== noteId);
 
       // Save that array to the filesystem
       writeToFile('./db/db.json', result);
