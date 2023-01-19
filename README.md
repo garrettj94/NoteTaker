@@ -1,5 +1,7 @@
 # NoteTaker
 
+ <img src="./public/assets/image/NoteTaker.png" alt="NoteTaker" title="NoteTaker">
+
 # table of Contents:
   - [Description](#description)
   - [Installation](#installation)

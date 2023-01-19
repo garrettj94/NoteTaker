@@ -10,32 +10,33 @@ const { readAndAppend, readFromFile, writeToFile } = require('../helpers/fsUtils
 notes.get('/', (req, res) => {
     readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
   });
-  // Route for a specific note
-  notes.get('/:title_id', (req, res) => {
-    const noteId = req.params.title_id;
-    readFromFile('./db/db.json')
-      .then((data) => JSON.parse(data))
-      .then((json) => {
-        const result = json.filter((note) => note.title_id === noteId);
-        return result.length > 0
-          ? res.json(result)
-          : res.json('No note with that ID');
-      });
-  });
+
+  // // Route for a specific note
+  // notes.get('/:title', (req, res) => {
+  //   const noteId = req.params.title;
+  //   readFromFile('./db/db.json')
+  //     .then((data) => JSON.parse(data))
+  //     .then((json) => {
+  //       const result = json.filter((note) => note.title === noteId);
+  //       return result.length > 0
+  //         ? res.json(result)
+  //         : res.json('No note with that ID');
+  //     });
+  // });
 
   
 // DELETE Route for a specific note
-notes.delete('/:title_id', (req, res) => {
-  const noteId = req.params.title_id;
+notes.delete('/:id', (req, res) => {
+  const noteId = req.params.id;
   readFromFile('./db/db.json')
     .then((data) => JSON.parse(data))
     .then((json) => {
       // Make a new array of all notes except the one with the ID provided in the URL
-      const result = json.filter((note) => notes.title_id !== noteId);
+      const result = json.filter((notes) => notes.id !== noteId);
 
       // Save that array to the filesystem
       writeToFile('./db/db.json', result);
-
+      console.log(noteId)
       // Respond to the DELETE request
       res.json(`Item ${noteId} has been deleted 🗑️`);
     });
@@ -46,11 +47,12 @@ notes.delete('/:title_id', (req, res) => {
   
     const { title, text } = req.body;
   
-    if (title && text) {
+    if (req.body) {
       const newNote = {
+        id: uuidv4(),
         title,
         text,
-        title_id: uuidv4(),
+        
       };
   
       readAndAppend(newNote, './db/db.json');
